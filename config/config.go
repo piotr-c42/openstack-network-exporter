@@ -53,37 +53,39 @@ func (s MetricSet) String() string {
 }
 
 type conf struct {
-	HttpListen    string          `yaml:"http-listen" env:"OPENSTACK_NETWORK_EXPORTER_HTTP_LISTEN"`
-	HttpPath      string          `yaml:"http-path" env:"OPENSTACK_NETWORK_EXPORTER_HTTP_PATH"`
-	WebConfigFile string          `yaml:"web-config" env:"OPENSTACK_NETWORK_EXPORTER_WEB_CONFIG"`
-	OvsRundir     string          `yaml:"ovs-rundir" env:"OPENSTACK_NETWORK_EXPORTER_OVS_RUNDIR"`
-	OvnRundir     string          `yaml:"ovn-rundir" env:"OPENSTACK_NETWORK_EXPORTER_OVN_RUNDIR"`
-	OvsdbRundir   string          `yaml:"ovsdb-rundir" env:"OPENSTACK_NETWORK_EXPORTER_OVSDB_RUNDIR"`
-	OvsProcdir    string          `yaml:"ovs-procdir" env:"OPENSTACK_NETWORK_EXPORTER_OVS_PROCDIR"`
-	LogLevel      string          `yaml:"log-level" env:"OPENSTACK_NETWORK_EXPORTER_LOG_LEVEL"`
-	logLevel      syslog.Priority `yaml:"-"`
-	Collectors    []string        `yaml:"collectors"`
-	MetricSets    []string        `yaml:"metric-sets"`
-	metricSets    MetricSet       `yaml:"-"`
-	IntBrdNam     string          `yaml:"br-int-name" env:"OPENSTACK_NETWORK_EXPORTER_BR_INT_NAME"`
-	OvnSBConn     string          `yaml:"ovn-sb-connection" env:"OPENSTACK_NETWORK_EXPORTER_OVN_SB_CONNECTION"`
-	OvnSBKey      string          `yaml:"ovn-sb-private-key" env:"OPENSTACK_NETWORK_EXPORTER_OVN_SB_PRIVATE_KEY"`
-	OvnSBCert     string          `yaml:"ovn-sb-certificate" env:"OPENSTACK_NETWORK_EXPORTER_OVN_SB_CERTIFICATE"`
-	OvnSBCACert   string          `yaml:"ovn-sb-ca-cert" env:"OPENSTACK_NETWORK_EXPORTER_OVN_SB_CA_CERT"`
+	HttpListen       string          `yaml:"http-listen" env:"OPENSTACK_NETWORK_EXPORTER_HTTP_LISTEN"`
+	HttpPath         string          `yaml:"http-path" env:"OPENSTACK_NETWORK_EXPORTER_HTTP_PATH"`
+	WebConfigFile    string          `yaml:"web-config" env:"OPENSTACK_NETWORK_EXPORTER_WEB_CONFIG"`
+	OvsRundir        string          `yaml:"ovs-rundir" env:"OPENSTACK_NETWORK_EXPORTER_OVS_RUNDIR"`
+	OvnRundir        string          `yaml:"ovn-rundir" env:"OPENSTACK_NETWORK_EXPORTER_OVN_RUNDIR"`
+	OvsdbRundir      string          `yaml:"ovsdb-rundir" env:"OPENSTACK_NETWORK_EXPORTER_OVSDB_RUNDIR"`
+	OvsdbRelayRundir string          `yaml:"ovsdb-relay-rundir" env:"OPENSTACK_NETWORK_EXPORTER_OVSDB_RELAY_RUNDIR"`
+	OvsProcdir       string          `yaml:"ovs-procdir" env:"OPENSTACK_NETWORK_EXPORTER_OVS_PROCDIR"`
+	LogLevel         string          `yaml:"log-level" env:"OPENSTACK_NETWORK_EXPORTER_LOG_LEVEL"`
+	logLevel         syslog.Priority `yaml:"-"`
+	Collectors       []string        `yaml:"collectors"`
+	MetricSets       []string        `yaml:"metric-sets"`
+	metricSets       MetricSet       `yaml:"-"`
+	IntBrdNam        string          `yaml:"br-int-name" env:"OPENSTACK_NETWORK_EXPORTER_BR_INT_NAME"`
+	OvnSBConn        string          `yaml:"ovn-sb-connection" env:"OPENSTACK_NETWORK_EXPORTER_OVN_SB_CONNECTION"`
+	OvnSBKey         string          `yaml:"ovn-sb-private-key" env:"OPENSTACK_NETWORK_EXPORTER_OVN_SB_PRIVATE_KEY"`
+	OvnSBCert        string          `yaml:"ovn-sb-certificate" env:"OPENSTACK_NETWORK_EXPORTER_OVN_SB_CERTIFICATE"`
+	OvnSBCACert      string          `yaml:"ovn-sb-ca-cert" env:"OPENSTACK_NETWORK_EXPORTER_OVN_SB_CA_CERT"`
 }
 
 var c = conf{
-	HttpListen:  ":1981",
-	HttpPath:    "/metrics",
-	OvsRundir:   "/run/openvswitch",
-	OvnRundir:   "/run/ovn",
-	OvsdbRundir: "/run/ovn",
-	OvsProcdir:  "/proc",
-	LogLevel:    "notice",
-	IntBrdNam:   "br-int",
-	OvnSBKey:    "/etc/pki/tls/private/ovndb.key",
-	OvnSBCert:   "/etc/pki/tls/certs/ovndb.crt",
-	OvnSBCACert: "/etc/pki/tls/certs/ovndbca.crt",
+	HttpListen:       ":1981",
+	HttpPath:         "/metrics",
+	OvsRundir:        "/run/openvswitch",
+	OvnRundir:        "/run/ovn",
+	OvsdbRundir:      "/run/ovn",
+	OvsdbRelayRundir: "/run/ovn",
+	OvsProcdir:       "/proc",
+	LogLevel:         "notice",
+	IntBrdNam:        "br-int",
+	OvnSBKey:         "/etc/pki/tls/private/ovndb.key",
+	OvnSBCert:        "/etc/pki/tls/certs/ovndb.crt",
+	OvnSBCACert:      "/etc/pki/tls/certs/ovndbca.crt",
 }
 
 func HttpListen() string        { return c.HttpListen }
@@ -92,6 +94,7 @@ func WebConfigFile() string     { return c.WebConfigFile }
 func OvsRundir() string         { return c.OvsRundir }
 func OvnRundir() string         { return c.OvnRundir }
 func OvsdbRundir() string       { return c.OvsdbRundir }
+func OvsdbRelayRundir() string  { return c.OvsdbRelayRundir }
 func OvsProcdir() string        { return c.OvsProcdir }
 func Collectors() []string      { return c.Collectors }
 func LogLevel() syslog.Priority { return c.logLevel }

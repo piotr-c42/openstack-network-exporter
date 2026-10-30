@@ -64,6 +64,15 @@
 #
 #ovsdb-rundir: /run/ovn
 
+# The absolute path to the runtime directory of the OVSDB relay. This folder
+# is expected to contain the relay database socket "ovnsb_relay_db.sock" and
+# its unixctl socket "ovnsb_relay_db.ctl".
+#
+# Env: OPENSTACK_NETWORK_EXPORTER_OVSDB_RELAY_RUNDIR
+# Default: /run/ovn
+#
+#ovsdb-relay-rundir: /run/ovn
+
 # The absolute path to the runtime directory of openvswitch. This folder is
 # expected to contain the ovsdb-server socket endpoint "db.sock", the
 # "ovs-vswitchd.pid" file and each bridge openflow management sockets

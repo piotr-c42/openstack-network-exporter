@@ -25,6 +25,7 @@ const (
 	ovnController appctlDaemon = "ovn-controller"
 	ovnNorthd     appctlDaemon = "ovn-northd"
 	ovsDbServer   appctlDaemon = "ovsdb-server"
+	ovsDbRelay    appctlDaemon = "ovsdb-server-relay"
 )
 
 func getPidFromFile(pidfile string) (int, error) {
@@ -121,11 +122,15 @@ func call(daemon appctlDaemon, method string, args ...string) string {
 		rundir = config.OvnRundir()
 	case ovsDbServer:
 		rundir = config.OvsdbRundir()
+	case ovsDbRelay:
+		rundir = config.OvsdbRelayRundir()
 	default:
 		panic(fmt.Errorf("unknown daemon value: %v", daemon))
 	}
 
-	if daemon == ovsDbServer {
+	if daemon == ovsDbRelay {
+		sockpath = filepath.Join(rundir, "ovnsb_relay_db.ctl")
+	} else if daemon == ovsDbServer {
 		sockpath, args, err = prepareCallDbServer(method, rundir, args...)
 		if err != nil {
 			log.Errf("Failed to prepare call to %s: %s", daemon, err)
@@ -192,4 +197,9 @@ func OvnNorthd(method string, args ...string) string {
 
 func OvsDbServer(method string, args ...string) string {
 	return call(ovsDbServer, method, args...)
+}
+
+// OvsDbRelay calls an appctl method on the OVSDB relay process.
+func OvsDbRelay(method string, args ...string) string {
+	return call(ovsDbRelay, method, args...)
 }
