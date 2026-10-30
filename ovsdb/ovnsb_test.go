@@ -111,7 +111,7 @@ func listDatapaths() error {
 // The SB client is cached: a restart or leader change of the SB database
 // must not leave it dead until the exporter restarts.
 func TestSBReconnectAfterServerRestart(t *testing.T) {
-	dir := t.TempDir()
+	dir := shortTempDir(t)
 	backend := filepath.Join(dir, "backend.sock")
 	srv := startSBServer(t, backend)
 	defer srv.Close()
