@@ -67,6 +67,12 @@ The collector for OVN will need access to the `ovn-controller` unixctl socket. T
 socket path is resolved using the PID file of `ovn-controller` at
 `/run/ovn/ovn-controller.pid` => `/run/ovn/ovn-controller.$PID.ctl`.
 
+The `ovnrelay` collector will need access to the OVSDB relay database socket at
+`/run/ovn/ovnsb_relay_db.sock` and its unixctl socket at
+`/run/ovn/ovnsb_relay_db.ctl`. The collector reports nothing when the database
+socket does not exist, so alert with `absent(ovn_sb_relay_up)` on nodes where a
+relay is expected.
+
 The bridge collector will need access to each bridge OpenFlow management socket
 located at `/run/openvswitch/$BRIDGE_NAME.mgmt`.
 
