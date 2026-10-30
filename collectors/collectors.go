@@ -13,6 +13,7 @@ import (
 	"github.com/openstack-k8s-operators/openstack-network-exporter/collectors/netvf"
 	"github.com/openstack-k8s-operators/openstack-network-exporter/collectors/ovn"
 	"github.com/openstack-k8s-operators/openstack-network-exporter/collectors/ovnnorthd"
+	"github.com/openstack-k8s-operators/openstack-network-exporter/collectors/ovnrelay"
 	"github.com/openstack-k8s-operators/openstack-network-exporter/collectors/ovsdbserver"
 	"github.com/openstack-k8s-operators/openstack-network-exporter/collectors/pmd_perf"
 	"github.com/openstack-k8s-operators/openstack-network-exporter/collectors/pmd_rxq"
@@ -28,6 +29,7 @@ var collectors = []lib.Collector{
 	new(memory.Collector),
 	new(netvf.Collector),
 	new(ovnnorthd.Collector),
+	new(ovnrelay.Collector),
 	new(ovn.Collector),
 	new(ovsdbserver.Collector),
 	new(pmd_perf.Collector),
